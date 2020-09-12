@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DateTimeLesson
 {
@@ -6,14 +7,40 @@ namespace DateTimeLesson
     {
         static void Main(string[] args)
         {
-            DateTime timeNow = DateTime.Now;
             var userDate = GetUserDate();
+            List<DateTime> daysAsList = new List<DateTime>();
+            Console.WriteLine("----------------------------------");
             Console.WriteLine($"Start DATE - {userDate.startDate.ToShortDateString()}"); // check input data
             Console.WriteLine($"Finish DATE - {userDate.finishDate.ToShortDateString()}");
-            Console.Write("Day to search - ");
-            string dayToSearch = Console.ReadLine();
-            PrintDays(userDate.startDate, userDate.finishDate, dayToSearch);
+            Console.WriteLine("----------------------------------");
+            DayOfWeek dayToSearch = InputDayEnum();
+            Console.WriteLine("----------------------------------");
+            PrintDays(userDate.startDate, userDate.finishDate, dayToSearch, out daysAsList);
+            PrintList(daysAsList, dayToSearch);
 
+        }
+
+        private static void PrintList(List<DateTime> daysAsList, DayOfWeek dayToPrint)
+        {
+            foreach(DateTime day in daysAsList)
+            {
+                Console.WriteLine(day.ToShortDateString() + " - " + dayToPrint);
+            }
+        }
+
+        private static DayOfWeek InputDayEnum()
+        {
+            Console.Write("Enter DAY to search - ");
+            string dayToSearch = Console.ReadLine();
+            DayOfWeek dayEnum;
+            while (!Enum.TryParse<DayOfWeek>(dayToSearch, out dayEnum))
+            {
+                Console.WriteLine("Error! Wrong DAY entered.");
+                Console.Write("Enter DAY to search - ");
+                dayToSearch = Console.ReadLine();
+            }
+            Console.WriteLine("DAY entered - " + dayEnum);
+            return dayEnum;
         }
 
         private static (DateTime startDate, DateTime finishDate) GetUserDate()
@@ -39,18 +66,21 @@ namespace DateTimeLesson
             return result;
         }
 
-        private static void PrintDays (DateTime startDate, DateTime finishDate, string dayToCheck)
+        private static void PrintDays (DateTime startDate, DateTime finishDate, DayOfWeek dayToCheck, out List<DateTime> daysArray)
         {
             DateTime tempDate = startDate;
             int i = 0;
+            List<DateTime> daysList = new List<DateTime>();
             while (tempDate.AddDays(i) <= finishDate)
             {
-                if (tempDate.AddDays(i).DayOfWeek.ToString().Equals(dayToCheck))
+                if (tempDate.AddDays(i).DayOfWeek == dayToCheck)
                 {
-                    Console.WriteLine(tempDate.AddDays(i).ToShortDateString() + " - " + tempDate.AddDays(i).DayOfWeek);
+                    //Console.WriteLine(tempDate.AddDays(i).ToShortDateString() + " - " + tempDate.AddDays(i).DayOfWeek);
+                    daysList.Add(tempDate.AddDays(i));
                 }
                 i++;
             }
+            daysArray = daysList;
         }
     }
 }
