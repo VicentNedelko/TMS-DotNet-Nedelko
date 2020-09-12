@@ -8,8 +8,11 @@ namespace DateTimeLesson
         {
             DateTime timeNow = DateTime.Now;
             var userDate = GetUserDate();
-            Console.WriteLine($"Start DATE - {userDate.startDate}");
-            Console.WriteLine($"Finish DATE - {userDate.finishDate}");
+            Console.WriteLine($"Start DATE - {userDate.startDate.ToShortDateString()}"); // check input data
+            Console.WriteLine($"Finish DATE - {userDate.finishDate.ToShortDateString()}");
+            Console.Write("Day to search - ");
+            string dayToSearch = Console.ReadLine();
+            PrintDays(userDate.startDate, userDate.finishDate, dayToSearch);
 
         }
 
@@ -34,6 +37,20 @@ namespace DateTimeLesson
             }
             var result = (startDate, finishDate);
             return result;
+        }
+
+        private static void PrintDays (DateTime startDate, DateTime finishDate, string dayToCheck)
+        {
+            DateTime tempDate = startDate;
+            int i = 0;
+            while (tempDate.AddDays(i) <= finishDate)
+            {
+                if (tempDate.AddDays(i).DayOfWeek.ToString().Equals(dayToCheck))
+                {
+                    Console.WriteLine(tempDate.AddDays(i).ToShortDateString() + " - " + tempDate.AddDays(i).DayOfWeek);
+                }
+                i++;
+            }
         }
     }
 }
