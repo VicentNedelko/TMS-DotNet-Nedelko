@@ -7,7 +7,6 @@ namespace DateTimeLesson
     {
         static void Main(string[] args)
         {
-
             var userDate = GetUserDate();
             while (!(userDate.startDate < userDate.finishDate))
             {
@@ -23,11 +22,10 @@ namespace DateTimeLesson
             Console.WriteLine("----------------------------------");
             DayOfWeek dayToSearch = InputDayEnum();
             Console.WriteLine("----------------------------------");
-            PrintDays(userDate.startDate, userDate.finishDate, dayToSearch, out daysAsList);
+            GetDays(userDate.startDate, userDate.finishDate, dayToSearch, out daysAsList);
             PrintList(daysAsList, dayToSearch);
 
         }
-
         private static void PrintList(List<DateTime> daysAsList, DayOfWeek dayToPrint)
         {
             foreach(DateTime day in daysAsList)
@@ -35,7 +33,6 @@ namespace DateTimeLesson
                 Console.WriteLine(day.ToShortDateString() + " - " + dayToPrint);
             }
         }
-
         private static DayOfWeek InputDayEnum()
         {
             Console.Write("Enter DAY to search - ");
@@ -52,7 +49,6 @@ namespace DateTimeLesson
             Console.WriteLine("DAY entered - " + dayEnum);
             return dayEnum;
         }
-
         private static (DateTime startDate, DateTime finishDate) GetUserDate()
         {
             DateTime startDate, finishDate;
@@ -79,17 +75,15 @@ namespace DateTimeLesson
             var result = (startDate, finishDate);
             return result;
         }
-
-        private static void PrintDays (DateTime startDate, DateTime finishDate, DayOfWeek dayToCheck, out List<DateTime> daysArray)
+        private static void GetDays (DateTime sDate, DateTime fDate, DayOfWeek dayToCheck, out List<DateTime> daysArray)
         {
-            DateTime tempDate = startDate;
             int i = 0;
             List<DateTime> daysList = new List<DateTime>();
-            while (tempDate.AddDays(i) <= finishDate)
+            while (sDate.AddDays(i) <= fDate)
             {
-                if (tempDate.AddDays(i).DayOfWeek == dayToCheck)
+                if (sDate.AddDays(i).DayOfWeek == dayToCheck)
                 {
-                    daysList.Add(tempDate.AddDays(i));
+                    daysList.Add(sDate.AddDays(i));
                 }
                 i++;
             }
