@@ -7,7 +7,15 @@ namespace DateTimeLesson
     {
         static void Main(string[] args)
         {
+
             var userDate = GetUserDate();
+            while (!(userDate.startDate < userDate.finishDate))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error! START must become earlier than FINISH date.");
+                Console.ForegroundColor = ConsoleColor.White;
+                userDate = GetUserDate();
+            }
             List<DateTime> daysAsList = new List<DateTime>();
             Console.WriteLine("----------------------------------");
             Console.WriteLine($"Start DATE - {userDate.startDate.ToShortDateString()}"); // check input data
@@ -35,7 +43,9 @@ namespace DateTimeLesson
             DayOfWeek dayEnum;
             while (!Enum.TryParse<DayOfWeek>(dayToSearch, out dayEnum))
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Error! Wrong DAY entered.");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("Enter DAY to search - ");
                 dayToSearch = Console.ReadLine();
             }
@@ -50,7 +60,9 @@ namespace DateTimeLesson
             string strDate = Console.ReadLine();
             while (!DateTime.TryParse(strDate, out startDate))
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Error! Wrong Date entered.");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("Enter start Date : ");
                 strDate = Console.ReadLine();
             }
@@ -58,7 +70,9 @@ namespace DateTimeLesson
             strDate = Console.ReadLine();
             while (!DateTime.TryParse(strDate, out finishDate))
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Error! Wrong Date entered.");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("Enter finish date : ");
                 strDate = Console.ReadLine();
             }
@@ -75,7 +89,6 @@ namespace DateTimeLesson
             {
                 if (tempDate.AddDays(i).DayOfWeek == dayToCheck)
                 {
-                    //Console.WriteLine(tempDate.AddDays(i).ToShortDateString() + " - " + tempDate.AddDays(i).DayOfWeek);
                     daysList.Add(tempDate.AddDays(i));
                 }
                 i++;
