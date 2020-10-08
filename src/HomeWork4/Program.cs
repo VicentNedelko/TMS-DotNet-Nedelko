@@ -63,7 +63,10 @@ namespace HomeWork4
                 eve.startDate = DateTime.Now;
             }
             Console.Write("Enter FINISH date : ");
-            eve.finishDate = DateTime.Parse(Console.ReadLine());
+            if (!DateTime.TryParse(Console.ReadLine(), out eve.finishDate))
+            {
+                eve.finishDate = DateTime.Now;
+            }
             if (eve.startDate > DateTime.Now)
             {
                 eve.status = Event.State.ToDo;
