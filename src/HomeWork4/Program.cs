@@ -79,11 +79,9 @@ namespace HomeWork4
         {
             Console.Clear();
             Console.WriteLine("-------CALENDAR-------");
+            Console.WriteLine();
             foreach (var events in calendar)
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("--------------");
-                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write($"ID - ");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(events.Id);
@@ -91,6 +89,9 @@ namespace HomeWork4
                 Console.WriteLine($"Description - {events.Description}");
                 Console.WriteLine($"Dates - {events.startDate.ToShortDateString()} -> { events.finishDate.ToShortDateString()} ");
                 Console.WriteLine($"Status - {events.status}");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("--------------");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
         public static bool CheckUserChoice()
@@ -169,7 +170,6 @@ namespace HomeWork4
             int i = 0;
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("Enter event ID : ");
-            Console.ForegroundColor = ConsoleColor.White;
             string id = Console.ReadLine().ToUpper();
             while (!isFound && i < calendar.Count)
             {
@@ -193,6 +193,7 @@ namespace HomeWork4
                 Console.WriteLine("Error! Wrong Event ID.");
                 System.Threading.Thread.Sleep(2000);
             }
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
