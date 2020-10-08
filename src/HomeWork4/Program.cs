@@ -32,12 +32,17 @@ namespace HomeWork4
                 switch (UserMenuChoice())
                 {
                     case 1:
+                        Console.Clear();
                         calendar.Add(AddEvent());
                         break;
                     case 2:
+                        Console.Clear();
+                        PrintCalendar(calendar);
                         EditEvent(calendar);
                         break;
                     case 3:
+                        Console.Clear();
+                        PrintCalendar(calendar);
                         DeleteEvent(calendar);
                         break;
                 }
@@ -47,6 +52,9 @@ namespace HomeWork4
         public static Event AddEvent()
         {
             Event eve = new Event();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("ADD Event...");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write("Enter discription : ");
             eve.Description = Console.ReadLine();
             Console.Write("Enter START date or press \"N\" for NOW : ");
@@ -70,10 +78,11 @@ namespace HomeWork4
         public static void PrintCalendar(List<Event> calendar)
         {
             Console.Clear();
+            Console.WriteLine("-------CALENDAR-------");
             foreach (var events in calendar)
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("-------");
+                Console.WriteLine("--------------");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write($"ID - ");
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -99,9 +108,10 @@ namespace HomeWork4
         public static int UserMenuChoice()
         {
             Console.WriteLine("Choose operation : ");
-            Console.WriteLine("ADD event - press \"A");
-            Console.WriteLine("Edit event - press\"E");
-            Console.WriteLine("Delete event - press\"D");
+            Console.WriteLine("-- ADD event - press \"A\"");
+            Console.WriteLine("-- EDIT event - press \"E\"");
+            Console.WriteLine("-- DELETE event - press\"D\"");
+            Console.Write("Operation : ");
             int result = Console.ReadKey().Key switch
             {
                 ConsoleKey.A => result = 1,
@@ -115,6 +125,9 @@ namespace HomeWork4
         {
             bool isFound = false;
             int i = 0;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("EDIT Event...");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write("Enter event ID : ");
             string id = Console.ReadLine().ToUpper();
             while(!isFound && i < calendar.Count)
@@ -132,8 +145,11 @@ namespace HomeWork4
             {
                 Console.Write("Enter new Description : ");
                 calendar[i].Description = Console.ReadLine();
-                Console.Write("Enter new START date : ");
-                calendar[i].startDate = DateTime.Parse(Console.ReadLine());
+                Console.Write("Enter new START date or press \"N\": ");
+                if (!DateTime.TryParse(Console.ReadLine(), out calendar[i].startDate))
+                {
+                    calendar[i].startDate = DateTime.Now;
+                }
                 Console.Write("Enter new FINISH date : ");
                 calendar[i].finishDate = DateTime.Parse(Console.ReadLine());
                 Console.Write("Enter new STATUS [ToDo, InProcess, Done, Canceled] : ");
@@ -151,7 +167,9 @@ namespace HomeWork4
         {
             bool isFound = false;
             int i = 0;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("Enter event ID : ");
+            Console.ForegroundColor = ConsoleColor.White;
             string id = Console.ReadLine().ToUpper();
             while (!isFound && i < calendar.Count)
             {
@@ -167,6 +185,13 @@ namespace HomeWork4
             if(isFound)
             {
                 calendar.RemoveAt(i);
+                Console.WriteLine("Event ID {0} removed.", id);
+                System.Threading.Thread.Sleep(2000);
+            }
+            else
+            {
+                Console.WriteLine("Error! Wrong Event ID.");
+                System.Threading.Thread.Sleep(2000);
             }
         }
     }
