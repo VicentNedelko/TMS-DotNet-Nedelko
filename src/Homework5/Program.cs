@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Homework5
 {
@@ -6,6 +7,7 @@ namespace Homework5
     {
         static void Main(string[] args)
         {
+            List<AnimalBase> list = new List<AnimalBase>();
             Shark shark = new Shark()
             {
                 Name = "Valya",
@@ -14,6 +16,7 @@ namespace Homework5
                 MaxSpeed = 25.5,
                 MaxDepth = 200.0,
             };
+            list.Add(shark);
             Eagle eagle = new Eagle()
             {
                 Name = "Vasya",
@@ -22,12 +25,14 @@ namespace Homework5
                 MaxSpeed = 75.0,
                 MaxAltitude = 1500.0,
             };
+            list.Add(eagle);
             Tiger tiger = new Tiger()
             {
                 Name = "Kolya",
                 Breed = "Lazy",
                 Weight = 150.0,
             };
+            list.Add(tiger);
             Deer deer = new Deer()
             {
                 Name = "Valik",
@@ -36,6 +41,7 @@ namespace Homework5
                 MaxSpeed = 5.0,
                 Edible = true,
             };
+            list.Add(deer);
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("-------SHARK : {0}", shark.Name);
@@ -64,6 +70,15 @@ namespace Homework5
             Console.ForegroundColor = ConsoleColor.White;
             deer.Move();
             deer.Voice();
+        }
+        public static void Print(List<AnimalBase> list)
+        {
+            Console.WriteLine("-----ANIMALS-----");
+            foreach (AnimalBase animal in list)
+            {
+                Console.WriteLine(animal.Name);
+                Console.WriteLine(animal.Breed);
+            }
         }
     }
 }
