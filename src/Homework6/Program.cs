@@ -7,8 +7,7 @@ namespace Homework6
         static void Main(string[] args)
         {
             Action<decimal> Operation;
-            //Action<decimal> ShowInformation;
-            Action<string, decimal> ShowInformation;
+            Action<decimal> ShowInformation;
             bool goFuther = true;
             Console.Write("Enter start sum [BYN] : ");
             Account account = new Account(Decimal.Parse(Console.ReadLine()));
@@ -24,19 +23,19 @@ namespace Homework6
                         Console.Write("Enter sum to add [BYN] : ");
                         decimal sum = Decimal.Parse(Console.ReadLine());
                         Operation.Invoke(sum);
-                        ShowInformation.Invoke("BYN",sum);
+                        ShowInformation.Invoke(sum);
                         break;
                     case ConsoleKey.W:
                         Console.Clear();
                         Operation = account.GetMoney;
                         ShowInformation = account.withdrawInfo;
                         var userChoice = account.ChooseCurrency();
-                        Console.Write($"Enter sum to withdraw : [{userChoice.Item1}]");
+                        Console.Write($"Enter sum to withdraw : [{userChoice.Item1}] ");
                         sum = Decimal.Parse(Console.ReadLine()) * userChoice.Item2;
                         if (sum <= account.Balance)
                         {
                             Operation.Invoke(sum);
-                            ShowInformation(userChoice.Item1, sum);
+                            ShowInformation(sum);
                         }
                         else
                         {

@@ -6,7 +6,9 @@ namespace Homework6
 {
     public class Account
     {
-        private decimal _balance;
+        /// <summary>
+        /// Currency exchange.
+        /// </summary>
         const decimal usdToByn = 2.57M;
         const decimal euroToByn = 3.02M;
         public decimal Balance { get; set; }
@@ -38,7 +40,7 @@ namespace Homework6
             Console.WriteLine();
             Console.WriteLine("Your add {0:f2} BYN to your account.", sum);
         }
-        public void withdrawInfo(string currency, decimal sum)
+        public void withdrawInfo(decimal sum)
         {
             Console.WriteLine();
             Console.WriteLine("You withdraw {0:f2} BYN.", sum);
