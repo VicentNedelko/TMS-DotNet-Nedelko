@@ -59,19 +59,19 @@ namespace Homework6
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.B:
-                    Console.Clear();
+                    //Console.Clear();
                     result = ("BYN", 1);
                     break;
                 case ConsoleKey.U:
-                    Console.Clear();
+                    //Console.Clear();
                     result = ("USD", usdToByn);
                     break;
                 case ConsoleKey.E:
-                    Console.Clear();
+                    //Console.Clear();
                     result =("EURO", euroToByn);
                     break;
                 default:
-                    Console.Clear();
+                    //Console.Clear();
                     result = ("X", 0);
                     break;
             }

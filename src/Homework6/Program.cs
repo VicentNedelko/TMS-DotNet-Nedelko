@@ -17,7 +17,7 @@ namespace Homework6
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.A:
-                        Console.Clear();
+                        //Console.Clear();
                         Operation = account.AddMoney;
                         ShowInformation = account.addInfo;
                         Console.Write("Enter sum to add [BYN] : ");
@@ -26,7 +26,7 @@ namespace Homework6
                         ShowInformation.Invoke(sum);
                         break;
                     case ConsoleKey.W:
-                        Console.Clear();
+                        //Console.Clear();
                         Operation = account.GetMoney;
                         ShowInformation = account.withdrawInfo;
                         var userChoice = account.ChooseCurrency();
@@ -43,7 +43,7 @@ namespace Homework6
                         }
                         break;
                     case ConsoleKey.D:
-                        Console.Clear();
+                        //Console.Clear();
                         account.PrintActualBalance();
                         break;
                     case ConsoleKey.E:
