@@ -12,6 +12,8 @@ namespace Homework6
         const decimal usdToByn = 2.57M;
         const decimal euroToByn = 3.02M;
         public decimal Balance { get; set; }
+        public event Action<decimal, string> Notify;
+
         public Account(decimal sum)
         {
             Balance = sum;
@@ -19,31 +21,18 @@ namespace Homework6
         public void AddMoney(decimal sumToAdd)
         {
             Balance += sumToAdd;
+            Notify?.Invoke(sumToAdd, " Add.");
         }
         public void GetMoney(decimal sumToWithDraw)
         {
             Balance -= sumToWithDraw;
+            Notify?.Invoke(sumToWithDraw, " Withdraw.");
         }
         public void PrintActualBalance()
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Actual Balance = {Balance}");
+            Console.WriteLine($"Actual Balance = {Balance} BYN.");
             Console.ForegroundColor = ConsoleColor.White;
-        }
-        public void addInfo(decimal sum)
-        {
-            Console.WriteLine();
-            Console.WriteLine("Your add {0:f2} BYN to your account.", sum);
-        }
-        public void addInfo(string str, decimal sum)
-        {
-            Console.WriteLine();
-            Console.WriteLine("Your add {0:f2} BYN to your account.", sum);
-        }
-        public void withdrawInfo(decimal sum)
-        {
-            Console.WriteLine();
-            Console.WriteLine("You withdraw {0:f2} BYN.", sum);
         }
         public (string, decimal) ChooseCurrency()
         {
@@ -59,23 +48,23 @@ namespace Homework6
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.B:
-                    //Console.Clear();
                     result = ("BYN", 1);
                     break;
                 case ConsoleKey.U:
-                    //Console.Clear();
                     result = ("USD", usdToByn);
                     break;
                 case ConsoleKey.E:
-                    //Console.Clear();
                     result =("EURO", euroToByn);
                     break;
                 default:
-                    //Console.Clear();
                     result = ("X", 0);
                     break;
             }
             return result;
+        }
+        public void DisplayOperationInfo(decimal sum, string operation)
+        {
+            Console.WriteLine($"Operation - {operation} Amount - {sum} BYN.");
         }
     }
 }

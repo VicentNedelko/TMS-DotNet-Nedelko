@@ -6,36 +6,27 @@ namespace Homework6
     {
         static void Main(string[] args)
         {
-            Action<decimal> Operation;
-            Action<decimal> ShowInformation;
             bool goFuther = true;
             Console.Write("Enter start sum [BYN] : ");
             Account account = new Account(Decimal.Parse(Console.ReadLine()));
+            account.Notify += account.DisplayOperationInfo;
             while(goFuther)
             {
                 PrintUserMenu();
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.A:
-                        //Console.Clear();
-                        Operation = account.AddMoney;
-                        ShowInformation = account.addInfo;
                         Console.Write("Enter sum to add [BYN] : ");
                         decimal sum = Decimal.Parse(Console.ReadLine());
-                        Operation.Invoke(sum);
-                        ShowInformation.Invoke(sum);
+                        account.AddMoney(sum);
                         break;
                     case ConsoleKey.W:
-                        //Console.Clear();
-                        Operation = account.GetMoney;
-                        ShowInformation = account.withdrawInfo;
                         var userChoice = account.ChooseCurrency();
                         Console.Write($"Enter sum to withdraw : [{userChoice.Item1}] ");
                         sum = Decimal.Parse(Console.ReadLine()) * userChoice.Item2;
                         if (sum <= account.Balance)
                         {
-                            Operation.Invoke(sum);
-                            ShowInformation(sum);
+                            account.GetMoney(sum);
                         }
                         else
                         {
@@ -43,7 +34,6 @@ namespace Homework6
                         }
                         break;
                     case ConsoleKey.D:
-                        //Console.Clear();
                         account.PrintActualBalance();
                         break;
                     case ConsoleKey.E:
