@@ -14,11 +14,15 @@ namespace Homework7
         {
             Id = Guid.NewGuid().ToString().Substring(0, 5);
             Energy = 5000.0;
+            Console.WriteLine($"User Energy - {Energy} KJ");
+            Console.WriteLine($"User ID - {Id}");
         }
         public User(double Energy)
         {
             Id = Guid.NewGuid().ToString().Substring(0, 5);
             this.Energy = Energy;
+            Console.WriteLine($"User Energy - {this.Energy} KJ");
+            Console.WriteLine($"User ID - {Id}");
         }
     }
 }
