@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Homework7
 {
@@ -9,26 +10,57 @@ namespace Homework7
         {
             ShowUserMenu();
             Activity activity = new Activity();
+            User user = new User();
             bool exit = false;
             while (!exit)
             {
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.R:
-                        activity.curActivity += ShowUserMenu;
-                        activity.Running();
-                        break;
+                        //activity.Running();
+                        if (user.Energy > 0)
+                        {
+                            activity.curActivity = GetUserInfo;
+                            user.Energy -= activity.activEnergy.Aggregate((current, next) => current + next) / 2;
+                            Console.WriteLine($"Current Energy - {user.Energy}");
+                            Console.WriteLine($"HeartRate - {activity.activEnergy.Average()}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Let's Relax!");
+                        }
+                            break;
                     case ConsoleKey.S:
                         activity.Swimming();
+                        if (user.Energy > 0)
+                        {
+                            activity.curActivity = GetUserInfo;
+                            user.Energy -= activity.activEnergy.Aggregate((current, next) => current + next) / 2;
+                        }
                         break;
                     case ConsoleKey.W:
                         activity.Walking();
+                        if (user.Energy > 0)
+                        {
+                            activity.curActivity = GetUserInfo;
+                            user.Energy -= activity.activEnergy.Aggregate((current, next) => current + next) / 2;
+                        }
                         break;
                     case ConsoleKey.T:
                         activity.Training();
+                        if (user.Energy > 0)
+                        {
+                            activity.curActivity = GetUserInfo;
+                            user.Energy -= activity.activEnergy.Aggregate((current, next) => current + next) / 2;
+                        }
                         break;
                     case ConsoleKey.X:
                         activity.Relax();
+                        if (user.Energy > 0)
+                        {
+                            activity.curActivity = GetUserInfo;
+                            user.Energy += activity.activEnergy.Aggregate((current, next) => current + next) / 2;
+                        }
                         break;
                     case ConsoleKey.E:
                         exit = true;
@@ -48,7 +80,10 @@ namespace Homework7
             Console.WriteLine("Relax - \"X\"");
             Console.WriteLine("Exit - \"E\"");
         }
-
-
+        public static void GetUserInfo(string s, List<int> info)
+        {
+            Console.WriteLine($"User activity - {s}");
+            Console.WriteLine($"Energy - {info.Aggregate((current, next) => current + next) / 2}");
+        }
     }
 }

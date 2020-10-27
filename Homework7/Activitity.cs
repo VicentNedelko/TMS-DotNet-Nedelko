@@ -8,43 +8,32 @@ namespace Homework7
     internal class Activity
     {
         public List<int> activEnergy = new List<int>();
-        public delegate void userActivity();
-        public event userActivity curActivity;
-        public User user { get; set; }
-        public Activity()
-        {
-            user = new User();
-        }
+        public Action<string, List<int>> curActivity;
 
         public void Swimming()
         {
             activEnergy = Training(120, 170);
-            user.Energy -= activEnergy.Aggregate((current, next) => current + next) / 2;
-            curActivity?.Invoke();
+            curActivity?.Invoke("Swimming", activEnergy);
         }
         public void Running()
         {
             activEnergy = Training(100, 130);
-            user.Energy -= activEnergy.Aggregate((current, next) => current + next) / 2;
-            curActivity?.Invoke();
+            curActivity?.Invoke("Running", activEnergy);
         }
         public void Walking()
         {
             activEnergy = Training(80, 110);
-            user.Energy -= activEnergy.Aggregate((current, next) => current + next) / 2;
-            curActivity?.Invoke();
+            curActivity?.Invoke("Walking", activEnergy);
         }
         public void Training()
         {
             activEnergy = Training(90, 120);
-            user.Energy -= activEnergy.Aggregate((current, next) => current + next) / 2;
-            curActivity?.Invoke();
+            curActivity?.Invoke("Training", activEnergy);
         }
         public void Relax()
         {
             activEnergy = Training(60, 80);
-            user.Energy += activEnergy.Aggregate((current, next) => current + next) / 2;
-            curActivity?.Invoke();
+            curActivity?.Invoke("Relax", activEnergy);
         }
         public List<int> Training(int startHR, int stopHR)
         {
@@ -54,7 +43,6 @@ namespace Homework7
             {
                 energy.Add(rand.Next(startHR, stopHR));
             }
-            user.Energy -= activEnergy.Aggregate((current, next) => current + next) / 2;
             return energy;
         }
     }
